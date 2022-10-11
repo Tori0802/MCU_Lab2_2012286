@@ -688,7 +688,7 @@ void update7SEG(int index){
 
 
 /* Khoi tao bien counter dem thoi gian va bien counter2led de dem thoi gian cho 2 den DOT */
-int counter = 0, counter2led = 2;
+int counter = 0, counter2led = 4;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
  80004f8:	b580      	push	{r7, lr}
@@ -706,11 +706,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
  800050c:	681b      	ldr	r3, [r3, #0]
  800050e:	2b00      	cmp	r3, #0
  8000510:	dc22      	bgt.n	8000558 <HAL_TIM_PeriodElapsedCallback+0x60>
-		counter = 50;   /* Khoang thoi gian chuyen doi trang thai giua 2 LEDs la 0.5s, nen counter se duoc dat bang 50 */
+		counter = 25;   /* Khoang thoi gian chuyen doi trang thai giua 2 LEDs la 0.25s, nen counter se duoc dat bang 25 */
  8000512:	4b13      	ldr	r3, [pc, #76]	; (8000560 <HAL_TIM_PeriodElapsedCallback+0x68>)
- 8000514:	2232      	movs	r2, #50	; 0x32
+ 8000514:	2219      	movs	r2, #25
  8000516:	601a      	str	r2, [r3, #0]
-		counter2led--;	/* Sau moi khoang 0.5s, bien counter2led se giam di 1 don vi */
+		counter2led--;	/* Sau moi khoang 0.25s, bien counter2led se giam di 1 don vi */
  8000518:	4b12      	ldr	r3, [pc, #72]	; (8000564 <HAL_TIM_PeriodElapsedCallback+0x6c>)
  800051a:	681b      	ldr	r3, [r3, #0]
  800051c:	3b01      	subs	r3, #1
@@ -733,16 +733,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
  800053c:	4b0a      	ldr	r3, [pc, #40]	; (8000568 <HAL_TIM_PeriodElapsedCallback+0x70>)
  800053e:	2200      	movs	r2, #0
  8000540:	601a      	str	r2, [r3, #0]
-		/* Theo de bai thi chu ki hai den DOT la 1 giay, vi khoang thoi gian chuyen doi duoc thiet lap o tren la 0.5s, nen counter2led phai duoc set trang thai ban dau bang 2 (2 * 0.5 = 1s) */
-		/* Neu bien counter2led bang hoac nho hon 0 thi ta se set lai bien counter2led = 2, dong thoi TogglePin 2 den DOT */
+		/* Theo de bai thi chu ki hai den DOT la 1 giay, vi khoang thoi gian chuyen doi duoc thiet lap o tren la 0.25s, nen counter2led phai duoc set trang thai ban dau bang 4 (4 * 0.25 = 1s) */
+		/* Neu bien counter2led bang hoac nho hon 0 thi ta se set lai bien counter2led = 4, dong thoi TogglePin 2 den DOT */
 		if (counter2led <= 0) {
  8000542:	4b08      	ldr	r3, [pc, #32]	; (8000564 <HAL_TIM_PeriodElapsedCallback+0x6c>)
  8000544:	681b      	ldr	r3, [r3, #0]
  8000546:	2b00      	cmp	r3, #0
  8000548:	dc06      	bgt.n	8000558 <HAL_TIM_PeriodElapsedCallback+0x60>
-			counter2led = 2;
+			counter2led = 4;
  800054a:	4b06      	ldr	r3, [pc, #24]	; (8000564 <HAL_TIM_PeriodElapsedCallback+0x6c>)
- 800054c:	2202      	movs	r2, #2
+ 800054c:	2204      	movs	r2, #4
  800054e:	601a      	str	r2, [r3, #0]
 			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
  8000550:	2110      	movs	r1, #16
