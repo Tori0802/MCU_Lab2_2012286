@@ -255,61 +255,55 @@ void display7SEG(int counter) {
 	HAL_GPIO_WritePin(SEG6_GPIO_Port, SEG6_Pin, bit_var);
 }
 
-const int MAX_LED = 4;
-int index_led = 0;
-int led_buffer[4] = {2, 3, 5, 9};
-void update7SEG(int index){
-	display7SEG(led_buffer[index]);
-	switch(index){
-	case 0:
-		// Display the second 7 SEG with led_buffer [0]
-		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, RESET);
-		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
-		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
-		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
-		break;
-	case 1:
-		// Display the second 7 SEG with led_buffer [1]
-		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
-		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET);
-		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
-		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
-		break;
-	case 2:
-		// Display the third 7 SEG with led_buffer [2]
-		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
-		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
-		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, RESET);
-		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
-		break;
-	case 3:
-		// Display the forth 7 SEG with led_buffer [3]
-		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
-		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
-		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
-		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, RESET);
-		break;
-	default:
-		break;
-	}
-}
-
-
-/* Khoi tao bien counter dem thoi gian va bien counter2led de dem thoi gian cho 2 den DOT */
-int counter = 0, counter2led = 2;
+/* Khoi tao bien counter dem thoi gian, bien status the hien chuyen doi trang thai cac LEDs, bien counter2led de dem thoi gian cho 2 den DOT */
+int counter = 0, status = 1, counter2led = 2;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
 	counter--;
-	if (counter <= 0) {
+	if (counter <= 0){
 		counter = 50;   /* Khoang thoi gian chuyen doi trang thai giua 2 LEDs la 0.5s, nen counter se duoc dat bang 50 */
-		counter2led--;	/* Sau moi khoang 0.5s, bien counter2led se giam di 1 don vi */
-		update7SEG(index_led++);
-		if (index_led >= MAX_LED) index_led = 0;
+		counter2led--;  /* Sau moi khoang 0.5s, bien counter2led se giam di 1 don vi */
+		switch(status){ /* Chia cac truong hop co the xay ra cua status */
+			case 1:  /* LEDs 1 sang */
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, RESET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
+				display7SEG(1);
+				status = 2;
+				break;
+			case 2: /* LEDs 2 sang */
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, RESET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
+				display7SEG(2);
+				status = 3;
+				break;
+			case 3:  /* LEDs 3 sang */
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, RESET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, SET);
+				display7SEG(3);
+				status = 4;
+				break;
+			case 4: /* LEDs 4 sang */
+				HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, SET);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, SET);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, RESET);
+				display7SEG(0);
+				status = 1;
+				break;
+			default:
+				break;
+		}
 		/* Theo de bai thi chu ki hai den DOT la 1 giay, vi khoang thoi gian chuyen doi duoc thiet lap o tren la 0.5s, nen counter2led phai duoc set trang thai ban dau bang 2 (2 * 0.5 = 1s) */
 		/* Neu bien counter2led bang hoac nho hon 0 thi ta se set lai bien counter2led = 2, dong thoi TogglePin 2 den DOT */
 		if (counter2led <= 0) {
-			counter2led = 2;
 			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+			counter2led = 2;
 		}
 	}
 }
