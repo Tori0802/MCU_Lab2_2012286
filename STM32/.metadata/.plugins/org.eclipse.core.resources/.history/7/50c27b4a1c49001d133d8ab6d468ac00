@@ -274,7 +274,7 @@ void display7SEG(int counter) {
 
 const int MAX_LED = 4;
 int index_led = 0;
-int led_buffer[4];
+int led_buffer[4] = {2, 3, 5, 9};
 void update7SEG(int index){
 	display7SEG(led_buffer[index]);
 	switch(index){
@@ -311,12 +311,6 @@ void update7SEG(int index){
 	}
 }
 
-void updateClockBuffer() {
-	led_buffer[0] = hour / 10;  /* Lay gia tri hang chuc cua bien hour */
-	led_buffer[1] = hour % 10;  /* Lay gia tri hang don vi cua bien hour */
-	led_buffer[2] = minute / 10;  /* Lay gia tri hang chuc cua bien minute */
-	led_buffer[3] = minute % 10;  /* Lay gia tri hang don vi cua bien minute */
-}
 
 /* Khoi tao bien counter dem thoi gian va bien counter2led de dem thoi gian cho 2 den DOT */
 int counter = 0, counter2led = 4;
