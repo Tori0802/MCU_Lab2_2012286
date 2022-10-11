@@ -111,36 +111,29 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer0(1000); /* Set timer ban dau la 1s */
-  int counterled = 2; /* Khoi tao bien dem thoi gian cho LED_RED */
-  updateClockBuffer(); /* Cap nhat trang thai ban dau */
+  setTimer0(1000);
   while (1)
   {
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-	  if(timer0_flag == 1) { /* Neu timer0_flag = 1, ta se setTimer lai voi gia tri 1 giay, dong thoi thay doi cac trang thai moi */
-		  setTimer0(1000); /* setTimer */
-		  second++; /* Update gio, phut, giay o giay moi */
-		  if (second >= 60) {
-			  second = 0;
-			  minute++;
-		  }
-		  if (minute >= 60) {
-			  minute = 0;
-			  hour++;
-		  }
-		  if (hour >= 24) {
-			  hour = 0;
-		  }
-		  updateClockBuffer(hour, minute); /* Cap nhat lai led_buffer */
-		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);  /* Toggile DOT pin */
-		  /* Vi thoi gian chuyen doi trang thai cua LED_RED la 2 giay, nen ta can 1 bien thoi gian la counterled de dem sau 2 lan setTimer(1000), ta moi goi TogglePin cho LED_RED */
-		  counterled--;
-		  if(counterled == 0) {
-			  counterled = 2;
-			  HAL_GPIO_TogglePin(LR_GPIO_Port, LR_Pin);
-		  }
+	  if(timer0_flag == 1) {
+		  HAL_GPIO_TogglePin(LR_GPIO_Port, LR_Pin);
+		  setTimer0(2000);
 	  }
+	  second++;
+	  if (second >= 60) {
+		  second = 0;
+		  minute++;
+	  }
+	  if (minute >= 60) {
+		  minute = 0;
+		  hour++;
+	  }
+	  if (hour >= 24) {
+		  hour = 0;
+	  }
+	  updateClockBuffer(hour, minute);
+	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
@@ -337,24 +330,29 @@ void update7SEG(int index){
 }
 
 void updateClockBuffer() {
-	led_buffer[0] = hour / 10;  /* Lay gia tri hang chuc cua bien hour */
-	led_buffer[1] = hour % 10;  /* Lay gia tri hang don vi cua bien hour */
-	led_buffer[2] = minute / 10;  /* Lay gia tri hang chuc cua bien minute */
-	led_buffer[3] = minute % 10;  /* Lay gia tri hang don vi cua bien minute */
+	led_buffer[0] = hour / 10;
+	led_buffer[1] = hour % 10;
+	led_buffer[2] = minute / 10;
+	led_buffer[3] = minute % 10;
 }
 
-int counter = 0;
+/* Khoi tao bien counter dem thoi gian va bien status the hien chuyen doi trang thai cac LEDs */
+int counter = 0, counter2led = 4;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
 	timer_run();
 	counter--;
 	if (counter <= 0) {
-		counter = 25;   /* Khoang thoi gian chuyen doi trang thai giua 2 LEDs 7 doan la 0.25s, nen counter se duoc dat bang 25 */
+		counter = 25;   /* Khoang thoi gian chuyen doi trang thai giua 2 LEDs la 0.25s, nen counter se duoc dat bang 50 */
+		counter2led--;
 		update7SEG(index_led++);
 		if (index_led >= MAX_LED) index_led = 0;
+		if (counter2led <= 0) {
+			counter2led = 4;
+			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		}
 	}
 }
-
 /* USER CODE END 4 */
 
 /**
