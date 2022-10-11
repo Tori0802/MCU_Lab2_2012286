@@ -56,20 +56,6 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int timer0_counter = 0;
-int timer0_flag = 0;
-int TIMER_CYCLE = 10;
-void setTimer0(int duration) {
-	timer0_counter = duration / TIMER_CYCLE;
-	timer0_flag = 0;
-}
-void timer_run() {
-	if(timer0_counter > 0) {
-		timer0_counter--;
-		if (timer0_counter == 0) timer0_flag = 1;
-	}
-}
-
 int hour = 15, minute = 8, second = 50;
 void display7SEG(int counter);
 void update7SEG(int index);
@@ -111,15 +97,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer0(1000);
   while (1)
   {
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
-	  if(timer0_flag == 1) {
-		  HAL_GPIO_TogglePin(LR_GPIO_Port, LR_Pin);
-		  setTimer0(2000);
-	  }
 	  second++;
 	  if (second >= 60) {
 		  second = 0;
@@ -330,23 +312,24 @@ void update7SEG(int index){
 }
 
 void updateClockBuffer() {
-	led_buffer[0] = hour / 10;
-	led_buffer[1] = hour % 10;
-	led_buffer[2] = minute / 10;
-	led_buffer[3] = minute % 10;
+	led_buffer[0] = hour / 10;  /* Lay gia tri hang chuc cua bien hour */
+	led_buffer[1] = hour % 10;  /* Lay gia tri hang don vi cua bien hour */
+	led_buffer[2] = minute / 10;  /* Lay gia tri hang chuc cua bien minute */
+	led_buffer[3] = minute % 10;  /* Lay gia tri hang don vi cua bien minute */
 }
 
-/* Khoi tao bien counter dem thoi gian va bien status the hien chuyen doi trang thai cac LEDs */
+/* Khoi tao bien counter dem thoi gian va bien counter2led de dem thoi gian cho 2 den DOT */
 int counter = 0, counter2led = 4;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
-	timer_run();
 	counter--;
 	if (counter <= 0) {
-		counter = 25;   /* Khoang thoi gian chuyen doi trang thai giua 2 LEDs la 0.25s, nen counter se duoc dat bang 50 */
-		counter2led--;
+		counter = 25;   /* Khoang thoi gian chuyen doi trang thai giua 2 LEDs la 0.25s, nen counter se duoc dat bang 25 */
+		counter2led--;	/* Sau moi khoang 0.25s, bien counter2led se giam di 1 don vi */
 		update7SEG(index_led++);
 		if (index_led >= MAX_LED) index_led = 0;
+		/* Theo de bai thi chu ki hai den DOT la 1 giay, vi khoang thoi gian chuyen doi duoc thiet lap o tren la 0.25s, nen counter2led phai duoc set trang thai ban dau bang 4 (4 * 0.25 = 1s) */
+		/* Neu bien counter2led bang hoac nho hon 0 thi ta se set lai bien counter2led = 4, dong thoi TogglePin 2 den DOT */
 		if (counter2led <= 0) {
 			counter2led = 4;
 			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
