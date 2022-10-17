@@ -158,7 +158,7 @@ int main(void)
   /* O day khong setTimer ban dau cho 4 LEDs 7-segment ma thay vao do ta dat gia tri ban dau timer1_flag = 1 */
   /* Li do vi de khong xay ra delay trong qua trinh quet cac led 7-segment */
   setTimer2(2000); /* Set timer ban dau cho LED_RED la 1s */
-  setTimer3(250); /* Set timer ban dau cho thoi gian quet tung hang la 0.125s */
+  setTimer3(125); /* Set timer ban dau cho thoi gian quet tung hang la 0.125s */
   updateClockBuffer(); /* Cap nhat trang thai ban dau */
   while (1)
   {
@@ -229,8 +229,8 @@ int main(void)
 	  		  HAL_GPIO_TogglePin(LR_GPIO_Port, LR_Pin); /* Toggle LED_RED pin */
 	  		}
 
-	  if(timer3_flag == 1) { /* Neu timer3_flag = 1, ta se setTimer lai voi gia tri 0.25 giay, dong thoi update lai LED Matrix */
-		  	  setTimer3(250);
+	  if(timer3_flag == 1) { /* Neu timer3_flag = 1, ta se setTimer lai voi gia tri 0.125 giay, dong thoi update lai LED Matrix */
+		  	  setTimer3(125);
 		  	  updateLEDMatrix(index_led_matrix);
 	  }
   }
@@ -410,6 +410,8 @@ void updateClockBuffer() {
 	led_buffer[2] = minute / 10;  /* Lay gia tri hang chuc cua bien minute */
 	led_buffer[3] = minute % 10;  /* Lay gia tri hang don vi cua bien minute */
 }
+
+
 
 /* LED MATRIX */
 

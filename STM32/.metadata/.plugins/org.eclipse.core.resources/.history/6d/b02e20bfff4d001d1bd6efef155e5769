@@ -158,7 +158,7 @@ int main(void)
   /* O day khong setTimer ban dau cho 4 LEDs 7-segment ma thay vao do ta dat gia tri ban dau timer1_flag = 1 */
   /* Li do vi de khong xay ra delay trong qua trinh quet cac led 7-segment */
   setTimer2(2000); /* Set timer ban dau cho LED_RED la 1s */
-  setTimer3(250); /* Set timer ban dau cho thoi gian quet tung hang la 0.125s */
+  setTimer3(125); /* Set timer ban dau cho thoi gian quet tung hang la 0.125s */
   updateClockBuffer(); /* Cap nhat trang thai ban dau */
   while (1)
   {
@@ -228,11 +228,6 @@ int main(void)
 	  		  setTimer2(2000); /* Set Timer */
 	  		  HAL_GPIO_TogglePin(LR_GPIO_Port, LR_Pin); /* Toggle LED_RED pin */
 	  		}
-
-	  if(timer3_flag == 1) { /* Neu timer3_flag = 1, ta se setTimer lai voi gia tri 0.25 giay, dong thoi update lai LED Matrix */
-		  	  setTimer3(250);
-		  	  updateLEDMatrix(index_led_matrix);
-	  }
   }
   /* USER CODE END 3 */
 }
@@ -371,8 +366,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-/* 7 LED SEGMENT */
-
 void display7SEG(int counter) {
 	/* Khoi tao mot day gom gia tri bit de hien thi cac chu so lan luot tu 0 toi 9 */
 	unsigned char disp_arr[10] = {0x40, 0x79, 0x24, 0x30, 0x19, 0x12, 0x02, 0x78, 0x00, 0x10};
@@ -403,7 +396,6 @@ void display7SEG(int counter) {
 	HAL_GPIO_WritePin(SEG6_GPIO_Port, SEG6_Pin, bit_var);
 }
 
-
 void updateClockBuffer() {
 	led_buffer[0] = hour / 10;  /* Lay gia tri hang chuc cua bien hour */
 	led_buffer[1] = hour % 10;  /* Lay gia tri hang don vi cua bien hour */
@@ -411,99 +403,6 @@ void updateClockBuffer() {
 	led_buffer[3] = minute % 10;  /* Lay gia tri hang don vi cua bien minute */
 }
 
-/* LED MATRIX */
-
-/* Ham displayMatrix dung de hien thi den cua hang "num" */
-void displayMatrix(int num) {
-	/* Khoi tao bien "varr" chua gia tri bit 7 doan cua hang "num" de hien thi va bien "bit_var" */
-	/* Vi o array matrix_buffer thi cac gia tri bit dang bi nguoc so voi mong muon hien thi nen voi moi gia tri duoc dua vao bien varr se duoc dao bit cho dung quy luat 0 -> Sang, 1 -> Tat */
-	int bit_var, varr = ~matrix_buffer[num];
-
-	/* Doi voi tung den o moi hang, bien bit_var se lay gia tri bit den do de hien thi den */
-	bit_var = varr & 0x01; /* Den 0 */
-	HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, bit_var);
-
-	bit_var = (varr>>1) & 0x01; /* Den 1 */
-	HAL_GPIO_WritePin(ENM1_GPIO_Port, ENM1_Pin, bit_var);
-
-	bit_var = (varr>>2) & 0x01; /* Den 2 */
-	HAL_GPIO_WritePin(ENM2_GPIO_Port, ENM2_Pin, bit_var);
-
-	bit_var = (varr>>3) & 0x01; /* Den 3 */
-	HAL_GPIO_WritePin(ENM3_GPIO_Port, ENM3_Pin, bit_var);
-
-	bit_var = (varr>>4) & 0x01; /* Den 4 */
-	HAL_GPIO_WritePin(ENM4_GPIO_Port, ENM4_Pin, bit_var);
-
-	bit_var = (varr>>5) & 0x01; /* Den 5 */
-	HAL_GPIO_WritePin(ENM5_GPIO_Port, ENM5_Pin, bit_var);
-
-	bit_var = (varr>>6) & 0x01; /* Den 6 */
-	HAL_GPIO_WritePin(ENM6_GPIO_Port, ENM6_Pin, bit_var);
-
-	bit_var = (varr>>7) & 0x01; /* Den 7 */
-	HAL_GPIO_WritePin(ENM7_GPIO_Port, ENM7_Pin, bit_var);
-}
-
-/* Ham updateLEDMatrix dung de scan hang "index" dang xet */
-void updateLEDMatrix(int index) {
-	switch (index){
-	/* Voi tham so index dua vao, hang co gia tri "index" se duoc RESET, con cac hang khac se SET */
-	/* Sau do voi hang index, ta goi ham displayMatrix de hien thi den, cuoi cung cap nhat gia tri index_led_matrix de chuan bi cho lan quet hang tiep theo */
-	case 0:	/* ROW0 */
-		HAL_GPIO_WritePin(ROW0_GPIO_Port, ROW0_Pin, RESET);
-		HAL_GPIO_WritePin(ROW0_GPIO_Port, ROW1_Pin | ROW2_Pin | ROW3_Pin | ROW4_Pin | ROW5_Pin | ROW6_Pin | ROW7_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 1;
-		break;
-	case 1:	/* ROW1 */
-		HAL_GPIO_WritePin(ROW1_GPIO_Port, ROW1_Pin, RESET);
-		HAL_GPIO_WritePin(ROW1_GPIO_Port, ROW0_Pin | ROW2_Pin | ROW3_Pin | ROW4_Pin | ROW5_Pin | ROW6_Pin | ROW7_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 2;
-		break;
-	case 2:	/* ROW2 */
-		HAL_GPIO_WritePin(ROW2_GPIO_Port, ROW2_Pin, RESET);
-		HAL_GPIO_WritePin(ROW2_GPIO_Port, ROW1_Pin | ROW0_Pin | ROW3_Pin | ROW4_Pin | ROW5_Pin | ROW6_Pin | ROW7_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 3;
-		break;
-	case 3:	/* ROW3 */
-		HAL_GPIO_WritePin(ROW3_GPIO_Port, ROW3_Pin, RESET);
-		HAL_GPIO_WritePin(ROW3_GPIO_Port, ROW1_Pin | ROW2_Pin | ROW0_Pin | ROW4_Pin | ROW5_Pin | ROW6_Pin | ROW7_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 4;
-		break;
-	case 4:	/* ROW4 */
-		HAL_GPIO_WritePin(ROW4_GPIO_Port, ROW4_Pin, RESET);
-		HAL_GPIO_WritePin(ROW4_GPIO_Port, ROW1_Pin | ROW2_Pin | ROW3_Pin | ROW0_Pin | ROW5_Pin | ROW6_Pin | ROW7_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 5;
-		break;
-	case 5:	/* ROW5 */
-		HAL_GPIO_WritePin(ROW5_GPIO_Port, ROW5_Pin, RESET);
-		HAL_GPIO_WritePin(ROW5_GPIO_Port, ROW1_Pin | ROW2_Pin | ROW3_Pin | ROW4_Pin | ROW0_Pin | ROW6_Pin | ROW7_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 6;
-		break;
-	case 6:	/* ROW6 */
-		HAL_GPIO_WritePin(ROW6_GPIO_Port, ROW6_Pin, RESET);
-		HAL_GPIO_WritePin(ROW6_GPIO_Port, ROW1_Pin | ROW2_Pin | ROW3_Pin | ROW4_Pin | ROW5_Pin | ROW0_Pin | ROW7_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 7;
-		break;
-	case 7:	/* ROW7 */
-		HAL_GPIO_WritePin(ROW7_GPIO_Port, ROW7_Pin, RESET);
-		HAL_GPIO_WritePin(ROW7_GPIO_Port, ROW1_Pin | ROW2_Pin | ROW3_Pin | ROW4_Pin | ROW5_Pin | ROW6_Pin | ROW0_Pin, SET);
-		displayMatrix(index);
-		index_led_matrix = 0;
-		break;
-	default:
-		break;
-	}
-}
-
-/* Timer Interrupt */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
 	timer_run();
