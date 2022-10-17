@@ -68,7 +68,6 @@
           <tags>persp.viewSC:com.st.stm32cube.ide.mcu.sfrview</tags>
           <children xsi:type="basic:PartSashContainer" xmi:id="_ipSvhU4AEe2gUcxQy4mvnQ" selectedElement="_ipSvik4AEe2gUcxQy4mvnQ" horizontal="true">
             <children xsi:type="basic:PartStack" xmi:id="_ipSvhk4AEe2gUcxQy4mvnQ" elementId="topLeft" containerData="1163" selectedElement="_ipSvh04AEe2gUcxQy4mvnQ">
-              <tags>noFocus</tags>
               <children xsi:type="advanced:Placeholder" xmi:id="_ipSvh04AEe2gUcxQy4mvnQ" elementId="org.eclipse.ui.navigator.ProjectExplorer" ref="_ipTXsE4AEe2gUcxQy4mvnQ" closeable="true">
                 <tags>View</tags>
                 <tags>categoryTag:General</tags>
@@ -82,7 +81,7 @@
                 <tags>categoryTag:General</tags>
               </children>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_ipSvik4AEe2gUcxQy4mvnQ" containerData="8837" selectedElement="_ipSvkU4AEe2gUcxQy4mvnQ">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_ipSvik4AEe2gUcxQy4mvnQ" containerData="8837" selectedElement="_ipSvi04AEe2gUcxQy4mvnQ">
               <children xsi:type="basic:PartSashContainer" xmi:id="_ipSvi04AEe2gUcxQy4mvnQ" containerData="7500" selectedElement="_ipSvjE4AEe2gUcxQy4mvnQ" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_ipSvjE4AEe2gUcxQy4mvnQ" elementId="org.eclipse.ui.editorss" containerData="8708" ref="_ipTXqU4AEe2gUcxQy4mvnQ"/>
                 <children xsi:type="basic:PartStack" xmi:id="_ipSvjU4AEe2gUcxQy4mvnQ" elementId="topRight" containerData="1292" selectedElement="_ipSvjk4AEe2gUcxQy4mvnQ">
@@ -215,13 +214,13 @@
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
         <tags>active</tags>
-        <tags>noFocus</tags>
         <children xsi:type="basic:Part" xmi:id="_ipTXq04AEe2gUcxQy4mvnQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="main.c" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;main.c&quot; partName=&quot;main.c&quot; title=&quot;main.c&quot; tooltip=&quot;Lab2/Core/Src/main.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Lab2/Core/Src/main.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;2918&quot; selectionTopPixel=&quot;1230&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;main.c&quot; partName=&quot;main.c&quot; title=&quot;main.c&quot; tooltip=&quot;Lab2/Core/Src/main.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Lab2/Core/Src/main.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;4477&quot; selectionTopPixel=&quot;2115&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
           <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
           <tags>active</tags>
+          <tags>activeOnClose</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_ipTXr04AEe2gUcxQy4mvnQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Lab2.ioc" iconURI="platform:/plugin/com.st.stm32cube.common.mx/icons/MicroXplorer.png" closeable="true">
           <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;com.st.stm32cube.common.mx.startCubeMx&quot; name=&quot;Lab2.ioc&quot; partName=&quot;Lab2.ioc&quot; title=&quot;Lab2.ioc&quot; tooltip=&quot;Device Configuration Tool&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Lab2/Lab2.ioc&quot;/>&#xD;&#xA;&lt;/editor>"/>
@@ -370,7 +369,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ipTYOE4AEe2gUcxQy4mvnQ" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_ipTYQE4AEe2gUcxQy4mvnQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ipVzGU4AEe2gUcxQy4mvnQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_XdjoIE4GEe2m5ISGuM1cfg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ipVzGU4AEe2gUcxQy4mvnQ"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ipTYSE4AEe2gUcxQy4mvnQ" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -401,10 +400,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ipT90E4AEe2gUcxQy4mvnQ" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_ipT91k4AEe2gUcxQy4mvnQ" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ipVN5E4AEe2gUcxQy4mvnQ"/>
-      </children>
-      <children xsi:type="menu:ToolBar" xmi:id="_ipT93U4AEe2gUcxQy4mvnQ" elementId="org.eclipse.cdt.ui.editor.CEditor" visible="false">
-        <tags>Draggable</tags>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_XdnSgE4GEe2m5ISGuM1cfg" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ipVN5E4AEe2gUcxQy4mvnQ"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ipT93k4AEe2gUcxQy4mvnQ" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -1254,18 +1250,18 @@
     <tags>View</tags>
     <tags>categoryTag:General</tags>
   </descriptors>
-  <trimContributions xmi:id="_ipVM8E4AEe2gUcxQy4mvnQ" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
-    <children xsi:type="menu:ToolControl" xmi:id="_ipVM8U4AEe2gUcxQy4mvnQ" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
+  <trimContributions xmi:id="_2r10UF9tEeO-yojH_y4TJA" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
+    <children xsi:type="menu:ToolControl" xmi:id="_76uUAF9tEeO-yojH_y4TJA" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
       <tags>glue</tags>
       <tags>move_after:PerspectiveSpacer</tags>
       <tags>SHOW_RESTORE_MENU</tags>
     </children>
-    <children xsi:type="menu:ToolControl" xmi:id="_ipVM8k4AEe2gUcxQy4mvnQ" elementId="SearchField" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.quickaccess.SearchField">
+    <children xsi:type="menu:ToolControl" xmi:id="_8tJPcF9tEeO-yojH_y4TJA" elementId="SearchField" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.quickaccess.SearchField">
       <tags>move_after:Spacer Glue</tags>
       <tags>HIDEABLE</tags>
       <tags>SHOW_RESTORE_MENU</tags>
     </children>
-    <children xsi:type="menu:ToolControl" xmi:id="_ipVM804AEe2gUcxQy4mvnQ" elementId="Search-PS Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
+    <children xsi:type="menu:ToolControl" xmi:id="_9LgmcF9tEeO-yojH_y4TJA" elementId="Search-PS Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
       <tags>glue</tags>
       <tags>move_after:SearchField</tags>
       <tags>SHOW_RESTORE_MENU</tags>

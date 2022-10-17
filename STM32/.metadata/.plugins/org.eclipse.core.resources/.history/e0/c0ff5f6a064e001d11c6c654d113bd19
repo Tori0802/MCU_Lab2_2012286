@@ -157,7 +157,7 @@ int main(void)
   setTimer0(1000); /* Set timer ban dau cho DOT la 1s */
   /* O day khong setTimer ban dau cho 4 LEDs 7-segment ma thay vao do ta dat gia tri ban dau timer1_flag = 1 */
   /* Li do vi de khong xay ra delay trong qua trinh quet cac led 7-segment */
-  setTimer2(2000); /* Set timer ban dau cho LED_RED la 2s */
+  setTimer2(2000); /* Set timer ban dau cho LED_RED la 1s */
   setTimer3(250); /* Set timer ban dau cho thoi gian quet tung hang la 0.125s */
   updateClockBuffer(); /* Cap nhat trang thai ban dau */
   while (1)
